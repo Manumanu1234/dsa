@@ -1,0 +1,57 @@
+#include <stdio.h>
+void arrayprint(int arr[], int count){
+    printf("[");
+    for (int i = 0; i < count; i++)
+    {   
+        printf("%d",arr[i]);
+        if(i<count-1){printf(",");}
+    }
+    printf("]\n");
+}
+
+int partion(int a[],int left,int right){
+    int i = left,j=right,temp =0;
+    int pivot = a[left];
+    while(i<=j){
+        while(i < right && a[i] <= pivot){
+            i++;
+        }
+        while(a[j]>pivot){
+            j--;
+        }
+
+        if(i<j){
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+    }
+    temp = a[left];
+    a[left] = a[j];
+    a[j] = temp;
+    return j;
+}
+
+void quicksor(int a[],int left ,int right){
+    if(left<right){
+        int pivot = partion(a,left,right);
+        printf("pass : ");
+        arrayprint(a,6);
+        quicksor(a,left,pivot - 1);
+        quicksor(a,pivot+1,right);
+    }
+}
+
+int main() {
+    int A[] = {12, 11, 13, 5, 6, 7};
+    int size = sizeof(A) / sizeof(A[0]);
+
+    printf("Given array is");
+    arrayprint(A, size);
+
+    quicksor(A, 0, size-1);
+
+    printf("Sorted array is ");
+    arrayprint(A, size);
+    return 0;
+}

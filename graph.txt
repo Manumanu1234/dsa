@@ -1,0 +1,84 @@
+import java.util.*;
+public class Main
+{
+  private HashMap<Integer,List<Integer>> map=new HashMap<>();
+  public void addValue(int value){
+      map.put(value,new ArrayList<>());
+  }
+  public void insertData(int vertex,int edge,boolean bi){
+      if(!map.containsKey(vertex)){
+          addValue(vertex);
+      }
+      if(!map.containsKey(edge)){
+          addValue(edge);
+      }
+      map.get(vertex).add(edge);
+      if(bi){
+          map.get(edge).add(vertex);
+      }
+      
+  }
+  public void display(){
+      for(Integer x:map.keySet()){
+          System.out.print(x+":");
+          for(Integer y:map.get(x)){
+              System.out.print(y+" ");
+          }
+          System.out.println();
+      }
+  }
+  public void Delete(int key){
+      map.remove(key);
+   for (Integer x : map.keySet()) {
+    map.get(x).remove(Integer.valueOf(key));
+   }
+
+  }
+  public void BFS(int key){
+      Queue<Integer> queue = new LinkedList<>();
+      Set<Integer> visited = new HashSet<>();
+      queue.add(key);
+      visited.add(key);
+      while(!queue.isEmpty()){
+          int current=queue.poll();
+          System.out.print(current+" ");
+          for(Integer x:map.get(current)){
+              if(!visited.contains(x)){
+                  queue.add(x);
+                  visited.add(x);
+              }
+          }
+          
+      }
+  }
+  
+  public void DFS(int key){
+      Set<Integer> set=new HashSet<>();
+      dfsHelper(key,set);
+  }
+  public void dfsHelper(int start,Set<Integer> visited){
+      visited.add(start);
+      System.out.print(start+" ");
+      for(Integer x:map.get(start)){
+        if(!visited.contains(x)){
+            dfsHelper(x,visited);
+        }    
+      }
+  }
+    
+	public static void main(String[] args) {
+	 Main s=new Main();
+	 s.insertData(2,3,false);
+	  s.insertData(2,8,false);
+	  s.insertData(3,11,true);
+	  s.insertData(8,4,true);
+	  s.insertData(8,12,false);
+	   s.insertData(4,5,false);
+   
+	 s.display();
+	 System.out.println();
+	 s.BFS(2);
+	 System.out.println();
+	 s.DFS(2);
+	}
+} graph

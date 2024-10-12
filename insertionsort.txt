@@ -1,0 +1,36 @@
+public class Main
+{
+    
+    public void insertionSort(int a[]){
+       
+       for(int i=1;i<a.length;i++){
+           int current=a[i];
+           int j=i-1;
+           while (j>=0 && a[j]>current){
+               a[j+1]=a[j];
+               j--;
+           }
+           a[j+1]=current;
+       }
+       
+       
+        for(int i=0;i<a.length;i++){
+            System.out.print(a[i]+" ");
+        }
+    }
+    public void swap(int a[],int j,int  current){
+        int temp=a[j];
+        a[j]=a[current];
+        a[current]=temp;
+        return;
+    }
+    
+    
+	public static void main(String[] args) {
+		 System.out.println("Hello World");
+	    int a[]={3,5,123,2,1,45};
+	    Main list=new Main();
+	    list.insertionSort(a);
+	    
+	}
+} insertion sort

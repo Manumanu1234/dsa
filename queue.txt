@@ -1,0 +1,62 @@
+class Queue {
+    private class Node {
+        int data;
+        Node next;
+        
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    
+    private Node front;
+    private Node rear;
+    private int size;
+    
+    public Queue() {
+        front = null;
+        rear = null;
+        size = 0;
+    }
+    
+    public void enqueue(int data) {
+        Node newNode = new Node(data);
+        if (rear == null) {
+            front = rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+        size++;
+    }
+    
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+        int result = front.data;
+        front = front.next;
+        if (front == null) {
+            rear = null;
+        }
+        size--;
+        return result;
+    }
+    
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty!");
+            return -1;
+        }
+        return front.data;
+    }
+    
+    public boolean isEmpty() {
+        return front == null;
+    }
+    
+    public int size() {
+        return size;
+    }
+}

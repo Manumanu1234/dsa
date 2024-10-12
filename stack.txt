@@ -1,0 +1,74 @@
+public class Stack{
+    class Node{
+        int data;
+        Node next;
+    
+        Node(int data){
+        this.data=data;
+    }
+    
+    }
+    public Node top;
+     
+     public void push(int data){
+      Node newnode=new Node(data);
+      if(top==null){
+          top=newnode;
+          return;
+      }
+      newnode.next=top;
+      top=newnode;
+    }
+    public void pop(){
+        if(top==null){
+            System.out.println("stack underflow");
+            return;
+        }
+        top=top.next;
+    }
+    
+    
+    //queue
+    
+    public Node front=null;
+    public Node rear=null;
+    public void enqueue(int data){
+        Node newnode=new Node(data);
+        if(rear==null){
+            front=newnode;
+            rear=newnode;
+            return;
+        }else{
+            rear.next=newnode;
+            rear=newnode;
+        }
+    }
+    public void dequeue(){
+        if(front==null){
+            System.out.println("empty");
+        }else{
+            front=front.next;
+        }
+        if(front==null){
+            rear=null;
+        }
+        
+    }
+    public void display(){
+        Node temp=front;
+        while(temp!=null){
+            System.out.println(temp.data);
+            temp=temp.next;
+        }
+    }
+    
+    public static void main (String[] args) {
+        Stack list=new Stack();
+        list.enqueue(1);
+        list.enqueue(2);
+        list.enqueue(3);
+        //list.pop();
+        list.dequeue();
+        list.display();
+    }
+}

@@ -1,0 +1,80 @@
+import java.util.*;
+
+public class Main
+{
+
+	List<Integer> heap;
+	//  public Main(List<Integer> array){
+	//     buildHeap(array);
+	// }
+
+	public void buildHeap() {
+
+		for(int i=parent(heap.size()-1); i>=0; i--) {
+			shiftDown(i,heap.size());
+		}
+	}
+
+	public void shiftDown(int parent,int size) {
+		int leftidx=left(parent);
+		int endidx=size-1;
+		while(leftidx<=endidx) {
+			int rightidx=right(parent);
+			int indextochange;
+			if(rightidx<=endidx && heap.get(rightidx)>heap.get(leftidx)) {
+				indextochange=rightidx;
+			} else {
+				indextochange=leftidx;
+			}
+			if(heap.get(parent)<heap.get(indextochange)) {
+				Collections.swap(heap,parent,indextochange);
+				parent=indextochange;
+				leftidx=left(parent);
+			} else {
+				return;
+			}
+		}
+	}
+
+	public int parent(int i) {
+		return (i-1)/2;
+	}
+	public int left(int i) {
+		return 2*i+1;
+	}
+	public int right(int i) {
+		return 2*i+2;
+	}
+
+
+
+	public void sort(List<Integer> a) {
+		heap = new ArrayList<>(a);
+        buildHeap();
+        List<Integer> sorted = new ArrayList<>(); 
+		for(int i=a.size()-1; i>=0; i--) {
+			Collections.swap(heap,0,i);
+			sorted.add(heap.get(i));
+			shiftDown(0,i);
+		}
+
+			System.out.println(sorted);
+		for(int j=sorted.size()-1;j>=0;j--){
+		    System.out.println(sorted.get(j));
+		}
+	}
+
+
+
+
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+
+		List<Integer> array=new ArrayList<>(Arrays.asList(6,2,8,1,5,15));
+		Main lists=new Main();
+		lists.sort(array);
+		//lists.display();
+
+
+	}
+} heap sort

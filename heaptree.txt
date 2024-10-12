@@ -1,0 +1,90 @@
+import java.util.*;
+public class Main
+{
+    List<Integer> heap=new ArrayList<>();
+    public Main(List<Integer> array){
+        buildHeap(array);
+    }
+    public void buildHeap(List<Integer> array){
+       heap=array;
+       for(int i=parent(heap.size()-1);i>=0;i--){
+           shiftDown(i);
+       }
+    }
+    
+    
+    public void  shiftDown(int currentnode){
+        int leftidx=leftchild(currentnode);
+        int endidx=heap.size()-1;
+        while(leftidx<=endidx){
+            int rightidx=rightchild(currentnode);
+            int indextochange;
+            if(rightidx <= endidx && heap.get(rightidx)<heap.get(leftidx)){
+                indextochange=rightidx;
+            }else{
+                indextochange=leftidx;
+            }
+            
+            if(heap.get(currentnode)>heap.get(indextochange)){
+                Collections.swap(heap,currentnode,indextochange);
+                currentnode=indextochange;
+                leftidx=leftchild(currentnode);
+            }else{
+                return;
+            }
+        }
+    }
+    public int parent(int i){
+        return (i-1)/2;
+    }
+    public int leftchild(int i){
+        return 2*i+1;
+    }
+    public int rightchild(int i){
+        return 2*i+2;
+    }
+    
+    public void display(){
+        for(int i=0;i<heap.size();i++){
+            System.out.println(heap.get(i));
+        }
+    }
+    
+    public void insert(int value){
+        heap.add(value);
+        shiftUp();
+    }
+    public void shiftUp(){
+        int lastaddvalue=heap.size()-1;
+        int parentnode=parent(lastaddvalue);
+        while(parentnode>=0){
+            if(heap.get(parentnode)>heap.get(lastaddvalue)){
+            Collections.swap(heap,parentnode,lastaddvalue);
+            lastaddvalue=parentnode;
+            parentnode=parent(parentnode);
+        }else{
+            return;
+        }
+        }
+        return;
+      
+    }
+    public void removeroot(){
+      int lastaddvalue=heap.size()-1;
+      Collections.swap(heap,0,lastaddvalue);
+      heap.remove(heap.size()-1);
+      shiftDown(0);
+    }
+    
+    
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+	     List<Integer> array=new ArrayList<>(Arrays.asList(6,2,8,1,5,15));
+	     Main lists=new Main(array);
+	     lists.insert(3);
+	     lists.insert(4);
+	     lists.insert(7);
+	     lists.removeroot();
+	     lists.display();
+	}
+}

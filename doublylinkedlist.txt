@@ -1,0 +1,133 @@
+import java.util.*;
+class doublylinkedlist{
+  class Node{
+    int data;
+    Node next;
+    Node prev;
+    Node(int data){
+     this.data=data;
+    }
+  }
+  
+ Node head=null;
+ Node tail=null;
+ 
+ public void Insert(int data){
+  Node newnode=new Node(data);
+  if(head==null){
+    newnode.data=data;
+    newnode.next=null;
+    newnode.prev=null;
+    tail=newnode;
+    head=newnode;
+    return;
+  }
+  newnode.data=data;
+  tail.next=newnode;
+  newnode.prev=tail;
+  tail=newnode;
+ }
+ 
+ public void InsertIntermediate(int data,int key){
+   Node newnode=new Node(data);
+   Node ptr=head;
+   while(ptr!=null && ptr.data!=key ){
+    ptr=ptr.next;
+   }
+   if(ptr!=null){
+      Node temp=ptr.next;
+   newnode.data=data;
+   newnode.next=ptr.next;
+   newnode.prev=ptr;
+   ptr.next=newnode;
+   temp.prev=newnode;
+    return;
+   }else{
+    System.out.println("No such key found");
+   }
+   
+
+ }
+  
+  public void Delete(int data){
+   Node ptr=head;
+   Node temp=null;
+   while(ptr!=null && ptr.data!=data){
+    ptr=ptr.next;
+   }
+   
+   if(ptr.data==head.data){
+    head=head.next;
+    head.prev=null;
+    return;
+   }
+   if(ptr.data==tail.data){
+    tail=ptr.prev;
+    tail.next=null;
+    return;
+   }
+   temp=ptr.prev;
+   temp.next=ptr.next;
+   ptr.prev=temp;
+  }
+  
+ public void Traverse1(){
+  Node ptr=tail;
+  while(ptr!=null){
+   System.out.println(ptr.data);
+   ptr=ptr.prev;
+  }
+  }
+  
+ public void Traverse(){
+  Node ptr=head;
+  while(ptr!=null){
+   System.out.println(ptr.data);
+   ptr=ptr.next;
+  }
+  }
+  
+
+  
+  public static void main(String args[]){
+   doublylinkedlist list=new doublylinkedlist();
+      Scanner sc=new Scanner(System.in);
+      while(true){
+      System.out.println("Enter the choice 1 for insert at end\n 2 for insert at intermedate \n 3 for traverse \n 4 for reverse traverse \n 5 for delete");
+      int choice =sc.nextInt();
+      switch(choice){
+       case 1:
+       System.out.println("Enter the element to insertat at end");
+       int data=sc.nextInt();
+       list.Insert(data);
+       break;
+       case 2:
+        System.out.println("Enter the element to insert at intermediate");
+        int data1=sc.nextInt();
+          System.out.println("Enter the key to find");
+        int key=sc.nextInt();
+        list.InsertIntermediate(data1,key);
+       break;
+       case 3:
+        System.out.println("traverse is: ");
+        list.Traverse();
+       break;
+       case 4:
+        System.out.println("reverse traverse is: ");
+        list.Traverse1();
+       break;
+       case 5:
+        System.out.println("Enter the element to delete");
+       int data3=sc.nextInt();
+        list.Delete(data3);
+       break;
+       default:
+       System.out.println("invalid output");
+       
+      }
+      
+      }
+ 
+       
+  }
+}

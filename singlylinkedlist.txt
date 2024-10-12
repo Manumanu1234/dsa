@@ -1,0 +1,120 @@
+// File: linkedlist.java
+public class linkedlist {
+    
+    class Node {
+        int data;
+        Node next;
+        
+        Node(int data) {
+            this.data = data;
+        }
+    }
+
+    public Node head = null;
+    public Node tail = null;
+
+    public void addnode(int data) {
+        Node newnode = new Node(data);
+        if (head == null) {
+            head = newnode;
+        } else {
+            tail.next = newnode;
+        }
+        System.out.println("newnode added");
+        tail = newnode;
+    }
+    public void deletenode(int data){
+        Node temp=head,prev=null;
+        if(temp.data==data){
+            head=temp.next;
+            return;
+        }
+        while(temp!=null && temp.data!=data){
+            prev=temp;
+            temp=temp.next;
+        }
+        if(temp==null){
+            return;
+        }
+        if(temp.data==tail.data){
+            tail=prev;
+            tail.next=null;
+            return;
+        }
+        prev.next=temp.next;
+    }
+    public void inserafter(int nextto,int data){
+        Node newnode=new Node(data);
+        Node temp=head;
+        while(temp!=null && temp.data !=nextto){
+            temp=temp.next;
+        }
+         
+         if(temp==tail){
+            System.out.println("kerunnund");
+            tail.next=newnode;
+            tail=newnode;
+            return;
+        }
+        
+        if(temp==null){
+           //  System.out.println("kerunnund");
+            return;
+        }
+       
+        }
+    
+    public void removeduplicate(){
+        Node current=head;
+        while(current!=null){
+            Node next=current.next;
+            while(next!=null&& next.data==current.data){
+                next=next.next;
+            }
+            current.next=next;
+            if(next==null){
+                tail=current;
+                tail.next=null;
+            }
+            if(next==tail){
+                tail=next;
+                tail.next=null;
+            }
+            current=next;
+        }
+        
+    }
+    
+
+
+
+
+
+
+
+
+    public void display() {
+        if (head == null) {
+            System.out.println("empty");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        linkedlist list = new linkedlist();
+        list.display();
+        list.addnode(4);
+        list.addnode(3);
+        list.addnode(3);
+        list.addnode(6);
+        list.removeduplicate();
+        list.display();
+         //  list.inserafter(30,11);
+       // list.display();
+  }
+}  node sigly

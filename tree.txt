@@ -1,0 +1,171 @@
+ublic class Tree{
+    class Node{
+        int data;
+        Node left,right;
+        
+        Node(int data){
+            this.data=data;
+        }
+    }
+    Node root;
+    
+    public  void insert(int data){
+        Node currentnode=root;
+        
+        if(currentnode==null){
+            root=new Node(data);
+            return;
+        }
+        while(true){
+            if(data==currentnode.data){
+                if(currentnode.left==null){
+                    currentnode.left=new Node(data);
+                    break;
+                }else if(currentnode.right==null){
+                   currentnode.right=new Node(data);
+                   break;
+                }else{
+                    currentnode=currentnode.right;
+                }
+            }
+            if(data<currentnode.data){
+                if(currentnode.left==null){
+                    currentnode.left=new Node(data);
+                    break;
+                }else{
+                    currentnode=currentnode.left;
+                }
+            }else{
+                if(currentnode.right==null){
+                    currentnode.right=new Node(data);
+                    break;
+                }else{
+                    currentnode=currentnode.right;
+                }
+                
+            }
+        }
+    }
+    
+    public  boolean contains(int data){
+        Node currentnode=root;
+        int flag=0;
+        while(currentnode !=null){
+             if(data<currentnode.data){
+            currentnode=currentnode.left;
+        }else if(data>currentnode.data){
+            currentnode=currentnode.right;
+        }else{
+            flag=1;
+            break;
+        }
+        }
+        if (flag==0){
+            return false;
+        }else{
+            return true;
+        }
+       
+    }
+    
+    public void remove(int data){
+        removeHelper(data,root,null);
+    }
+    public void removeHelper(int data,Node currentnode,Node parentnode){
+        while(currentnode!=null){
+            if(data<currentnode.data){
+                parentnode=currentnode;
+                currentnode=parentnode.left;
+            }else if(data>currentnode.data){
+                parentnode=currentnode;
+                currentnode=parentnode.right;
+            }else{
+                if(currentnode.left!=null && currentnode.right !=null){
+                    currentnode.data=getminvalue(currentnode.right);
+                    removeHelper(currentnode.data,currentnode.left,currentnode);
+                }else{
+                    if(parentnode==null){
+                        if(currentnode.right==null){
+                            root=currentnode.left;
+                        }else{
+                            root=currentnode.right;
+                        }
+                        
+                    }else{
+                        if(parentnode.left==currentnode){
+                            if(currentnode.right==null){
+                                parentnode.left=currentnode.left;
+                            }else{
+                                parentnode.left=currentnode.right;
+                            }
+                        }else{
+                              if(currentnode.left==null){
+                                parentnode.right=currentnode.right;
+                            }else{
+                                parentnode.right=currentnode.left;
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
+    public int  getminvalue(Node currentnode){
+        if(currentnode.left==null){
+            return currentnode.data;
+        }else{
+          return getminvalue(currentnode.left);
+        }
+    }
+    
+    public void inorder(){
+        inorderhelper(root);
+    }
+    public void inorderhelper(Node node){
+        if(node!=null){
+            inorderhelper(node.left);
+            System.out.print(node.data+" ");
+            inorderhelper(node.right);
+        }
+    }
+     public void preorder(){
+        preorderhelper(root);
+    }
+    public void preorderhelper(Node node){
+        if(node!=null){
+            System.out.print(node.data+" ");
+            preorderhelper(node.left);
+            preorderhelper(node.right);
+        }
+    }
+     public void postorder(){
+        postorderhelper(root);
+    }
+    public void postorderhelper(Node node){
+        if(node!=null){
+            postorderhelper(node.left);
+            postorderhelper(node.right);
+            System.out.print(node.data+" ");
+        }
+    }
+    
+    
+    
+     public static void main (String[] args) {
+          Tree datas=new Tree();
+          datas.insert(10);
+          datas.insert(8);
+          datas.insert(7);
+          datas.insert(9);
+          datas.insert(15);
+          //datas.remove(6);
+         // System.out.println(datas.contains(6));
+          datas.inorder();
+          System.out.println();
+          datas.preorder();
+          System.out.println();
+          datas.postorder();
+    }
+    
+}
